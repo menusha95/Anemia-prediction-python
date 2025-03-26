@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<body>
+   <form>
+      <div class="form-group">
+         <label for="RBC">RBC:</label>
+         <input type="number" class="form-control" id="rbc" min="4" max="8" placeholder="Enter RBC value">
+      </div>
+      <div class="form-group">
+         <label for="HB">HB:</label>
+         <input type="number" class="form-control" id="hb" placeholder="Enter HB value">
+      </div>
+      <div class="form-group">
+         <label for="MCV">MCV:</label>
+         <input type="number" class="form-control" id="mcv" placeholder="Enter MCV value">
+      </div>
+      <div class="form-group">
+         <label for="MCH">MCH:</label>
+         <input type="number" class="form-control" id="mch" placeholder="Enter MCH value">
+      </div>
+      <div class="form-group">
+         <label for="MCHC">MCHC:</label>
+         <input type="number" class="form-control" id="mchc" placeholder="Enter MCHC value">
+      </div>
+      <div class="form-group">
+         <label for="RDW">RDW:</label>
+         <input type="number" class="form-control" id="rdw" placeholder="Enter RDW value">
+      </div>
+      
+   </form>
+
+   <p id="demo"></p>
+
+
+   <button onclick="myFunction()">Predict</button>
+
+   <script type="text/javascript">
+
+      function myFunction() {
+         var a = document.getElementById("rbc").value;
+         var b = document.getElementById("hb").value;
+         var c = document.getElementById("mcv").value;
+         var d = document.getElementById("mch").value;
+         var e = document.getElementById("mchc").value;
+         var f = document.getElementById("rdw").value;
+
+
+         var endpoint = 'http://127.0.0.1:9000/predict';
+
+         $.ajax({
+            type: "POST",
+            url: endpoint,
+            dataType: "json",
+            data: JSON.stringify({ "RBC": a, "HB": b, "MCV": c, "MCH": d, "MCHC": e, "RDW": f }),
+            success: function (data) {
+               var jsonStr = JSON.stringify(data);
+               // document.body.innerHTML = jsonStr;
+               document.getElementById("demo").innerHTML = jsonStr;
+            }
+         });
+
+
+
+
+      }
+
+
+   </script>
+</body>
+
+</html>
